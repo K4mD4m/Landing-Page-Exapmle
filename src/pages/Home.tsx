@@ -2,6 +2,62 @@ import { motion } from "framer-motion";
 import heroVideo from "../assets/hero.mp4";
 import CTAButton from "../components/CTA";
 import { Sparkles, FileText, Send } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+
+const AnimatedCounter = ({ end }: { end: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [count, setCount] = useState(Math.floor(end * 0.6));
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.6 }
+    );
+
+    const element = ref.current;
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) observer.unobserve(element);
+    };
+  }, [hasAnimated]);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+
+    const duration = 2000;
+    const steps = 30;
+    const stepTime = duration / steps;
+    let currentStep = 0;
+
+    const interval = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+      const value = Math.floor((0.6 + 0.4 * progress) * end);
+      setCount(value);
+
+      if (currentStep >= steps) {
+        clearInterval(interval);
+        setCount(end);
+      }
+    }, stepTime);
+
+    return () => clearInterval(interval);
+  }, [hasAnimated, end]);
+
+  return (
+    <div ref={ref}>
+      <h3 className="text-4xl font-bold mb-1">{count.toLocaleString()}+</h3>
+    </div>
+  );
+};
 
 const Home = () => {
   return (
@@ -41,7 +97,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-6"
           >
-            <CTAButton label="See Pricing" to="/pricing" />
+            <CTAButton label="See plans" to="/pricing" />
           </motion.div>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0f0f0f] to-transparent z-20" />
@@ -146,6 +202,63 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA SECTION */}
+      <section className="relative bg-[#0c0c0c] py-32 px-6 overflow-hidden text-white">
+        {/* BACKGROUND BLOBS */}
+        <motion.div className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-purple-600 rounded-full blur-3xl opacity-20" />
+        <motion.div className="absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-blue-500 rounded-full blur-3xl opacity-20" />
+
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl md:text-4xl font-bold mb-6"
+            viewport={{ once: true }}
+          >
+            Join the growing community using MeetBrief
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-14"
+            viewport={{ once: true }}
+          >
+            Thousands of creatives already use AI-powered briefs to save time
+            and stay clear. You could be one of them.
+          </motion.p>
+
+          {/* STATS */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-16">
+            {[
+              { label: "Briefs generated", end: 12420 },
+              { label: "Users onboarded", end: 2390 },
+              { label: "Teams using MeetBrief", end: 482 },
+            ].map(({ label, end }, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.2 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <AnimatedCounter end={end} />
+                <p className="text-gray-400 text-sm">{label}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Placeholders */}
+          <div className="text-gray-500 italic text-sm mb-12">
+            Trusted by freelancers, design studios, and startups worldwide
+          </div>
+
+          <CTAButton label="Create your first brief" to="/app" />
         </div>
       </section>
     </>

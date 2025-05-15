@@ -21,7 +21,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="text-4xl font-bold text-white tracking-tight">
-          Meet<span className="text-blue-500">Brief</span>
+          <span className="drop-shadow-[0_0_8px_#0ff]">Meet</span>
+          <span className="text-blue-500 drop-shadow-[0_0_16px_#3b82f6] ml-1">
+            Brief
+          </span>
         </Link>
 
         {/* Desktop nav */}
