@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </Suspense>
+      <Footer />
     </Router>
   );
 }
