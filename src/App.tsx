@@ -1,8 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import { lazy, Suspense } from "react";
+import Loader from "./components/Loader";
+
+const Home = lazy(() => import("./pages/Home"));
+
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <Router>
+      <Navbar />
+      <Suspense fallback={<Loader />}>
+        {" "}
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Suspense>
+    </Router>
   );
 }
 
