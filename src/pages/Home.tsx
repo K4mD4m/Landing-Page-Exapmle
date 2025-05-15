@@ -100,6 +100,54 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <section className="relative bg-[#0c0c0c] text-white py-36 px-6 overflow-hidden">
+        {/* BG DECORATION */}
+        <div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500 opacity-10 rounded-full blur-3xl z-0" />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          {/* SECTION TITLE */}
+          <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r text-blue-400 bg-clip-text mb-6">
+            Why MeetBrief?
+          </h2>
+          <div className="w-24 h-1 bg-blue-500 mx-auto mb-20 rounded-full" />
+
+          <div className="space-y-20">
+            {[
+              {
+                title: "No more messy docs.",
+                subtitle:
+                  "Structure and clarity from the first draft. Instantly.",
+              },
+              {
+                title: "Briefs that actually brief.",
+                subtitle:
+                  "Everything you need, nothing you don’t. Built for doing.",
+              },
+              {
+                title: "AI that gets it.",
+                subtitle:
+                  "Our models are trained to understand creative workflows — not just words.",
+              },
+            ].map((point, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white">
+                  {point.title}
+                </h3>
+                <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto">
+                  {point.subtitle}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 };
