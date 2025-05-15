@@ -1,55 +1,107 @@
 import { motion } from "framer-motion";
 import heroVideo from "../assets/hero.mp4";
 import CTAButton from "../components/CTA";
+import { Sparkles, FileText, Send } from "lucide-react";
 
-const Hero = () => {
+const Home = () => {
   return (
-    <section className="relative w-full h-[100vh] overflow-hidden flex items-center justify-center">
-      {/* VIDEO BACKGROUND */}
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        src={heroVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-      />
+    <>
+      {/* HERO SECTION */}
+      <section className="relative w-full h-[100vh] overflow-hidden flex items-center justify-center">
+        <video
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          src={heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="relative z-20 text-center px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5 }}
+            className="text-white text-4xl md:text-5xl font-bold mb-6"
+          >
+            Create briefs in seconds. Powered by AI.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-gray-300 text-base md:text-lg max-w-xl mx-auto"
+          >
+            Streamline your creative process with fast, clear and smart briefs —
+            perfect for freelancers, agencies, and startups.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mt-6"
+          >
+            <CTAButton label="See Pricing" to="/pricing" />
+          </motion.div>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0f0f0f] to-transparent z-20" />
+      </section>
 
-      {/* OVERLAY */}
-      <div className="absolute inset-0 bg-black/60 z-10" />
-
-      {/* CONTENT */}
-      <div className="relative z-20 text-center px-4">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5 }}
-          className="text-white text-4xl md:text-5xl font-bold mb-6"
-        >
-          Create briefs in seconds. Powered by AI.
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="text-gray-300 text-base md:text-lg max-w-xl mx-auto"
-        >
-          Streamline your creative process with fast, clear and smart briefs —
-          perfect for freelancers, agencies, and startups.
-        </motion.p>
-
+      {/* HOW IT WORKS */}
+      <section className="relative bg-[#0f0f0f] py-32 px-6 overflow-hidden">
+        {/* ANIMATED BG BLOBS */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-6"
-        >
-          <CTAButton label="See Pricing" to="/pricing" />
-        </motion.div>
-      </div>
-    </section>
+          className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-blue-500 rounded-full blur-3xl opacity-30 z-0"
+          animate={{ x: [0, 20, -20, 0], y: [0, 10, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-purple-600 rounded-full blur-3xl opacity-30 z-0"
+          animate={{ x: [0, -30, 30, 0], y: [0, -10, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+        />
+
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
+            How it works
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              {
+                icon: <Sparkles size={40} className="text-blue-400 mb-4" />,
+                title: "Input your idea",
+                desc: "Describe your project. Our AI gets to work instantly.",
+              },
+              {
+                icon: <FileText size={40} className="text-blue-400 mb-4" />,
+                title: "Get your brief",
+                desc: "Receive a smart, structured brief ready to go.",
+              },
+              {
+                icon: <Send size={40} className="text-blue-400 mb-4" />,
+                title: "Refine & share",
+                desc: "Tweak and export your brief with one click.",
+              },
+            ].map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                viewport={{ once: true }}
+                className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 text-white shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-all duration-300"
+              >
+                {step.icon}
+                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-400 text-sm">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
-export default Hero;
+export default Home;
