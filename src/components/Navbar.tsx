@@ -44,7 +44,7 @@ const Navbar = () => {
                 <motion.div
                   layoutId="navbar-underline"
                   className="absolute left-0 -bottom-1 h-[2px] w-full bg-blue-400 rounded"
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  transition={{ type: "spring", stiffness: 250, damping: 30 }}
                 />
               )}
             </Link>

@@ -61,7 +61,7 @@ const AnimatedCounter = ({ end }: { end: number }) => {
 
 const Home = () => {
   return (
-    <>
+    <div className="bg-[#0c0c0c] text-white overflow-hidden">
       {/* HERO SECTION */}
       <section className="relative w-full h-[100vh] overflow-hidden flex items-center justify-center">
         <video
@@ -100,12 +100,12 @@ const Home = () => {
             <CTAButton label="See plans" to="/pricing" />
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0f0f0f] to-transparent z-20" />
+        {/* Smooth transition gradient */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0c0c0c] to-transparent z-20" />
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="relative bg-[#0f0f0f] py-32 px-6 overflow-hidden">
-        {/* ANIMATED BG BLOBS */}
+      <div className="relative py-32 px-6">
         <motion.div
           className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-blue-500 rounded-full blur-3xl opacity-30 z-0"
           animate={{ x: [0, 20, -20, 0], y: [0, 10, -10, 0] }}
@@ -118,24 +118,22 @@ const Home = () => {
         />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-            How it works
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-16">How it works</h2>
 
           <div className="grid md:grid-cols-3 gap-10">
             {[
               {
-                icon: <Sparkles size={40} className="text-blue-400 mb-4" />,
+                icon: <Sparkles />,
                 title: "Input your idea",
                 desc: "Describe your project. Our AI gets to work instantly.",
               },
               {
-                icon: <FileText size={40} className="text-blue-400 mb-4" />,
+                icon: <FileText />,
                 title: "Get your brief",
                 desc: "Receive a smart, structured brief ready to go.",
               },
               {
-                icon: <Send size={40} className="text-blue-400 mb-4" />,
+                icon: <Send />,
                 title: "Refine & share",
                 desc: "Tweak and export your brief with one click.",
               },
@@ -146,25 +144,23 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: idx * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 text-white shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-all duration-300"
+                className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-all duration-300"
               >
-                {step.icon}
+                <div className="text-blue-400 mb-4">{step.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                 <p className="text-gray-400 text-sm">{step.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="relative bg-[#0c0c0c] text-white py-36 px-6 overflow-hidden">
-        {/* BG DECORATION */}
-
+      {/* WHY SECTION */}
+      <div className="relative py-36 px-6">
         <div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500 opacity-10 rounded-full blur-3xl z-0" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          {/* SECTION TITLE */}
-          <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r text-blue-400 bg-clip-text mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-blue-400 bg-clip-text mb-6">
             Why MeetBrief?
           </h2>
           <div className="w-24 h-1 bg-blue-500 mx-auto mb-20 rounded-full" />
@@ -194,7 +190,7 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: i * 0.2 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white">
+                <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-blue-400">
                   {point.title}
                 </h3>
                 <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto">
@@ -203,12 +199,12 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
+          <div className="w-24 h-1 bg-blue-500 mx-auto mt-20 rounded-full" />
         </div>
-      </section>
+      </div>
 
-      {/* FINAL CTA SECTION */}
-      <section className="relative bg-[#0c0c0c] py-32 px-6 overflow-hidden text-white">
-        {/* BACKGROUND BLOBS */}
+      {/* FINAL CTA */}
+      <div className="relative py-32 px-6">
         <motion.div className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-purple-600 rounded-full blur-3xl opacity-20" />
         <motion.div className="absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-blue-500 rounded-full blur-3xl opacity-20" />
 
@@ -220,7 +216,7 @@ const Home = () => {
             className="text-3xl md:text-4xl font-bold mb-6"
             viewport={{ once: true }}
           >
-            Join the growing community using MeetBrief
+            Join the growing community using MeetBrief!
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -233,7 +229,6 @@ const Home = () => {
             and stay clear. You could be one of them.
           </motion.p>
 
-          {/* STATS */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-16">
             {[
               { label: "Briefs generated", end: 12420 },
@@ -254,15 +249,14 @@ const Home = () => {
             ))}
           </div>
 
-          {/* Placeholders */}
           <div className="text-gray-500 italic text-sm mb-12">
             Trusted by freelancers, design studios, and startups worldwide
           </div>
 
           <CTAButton label="Create your first brief" to="/pricing" />
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 };
 
