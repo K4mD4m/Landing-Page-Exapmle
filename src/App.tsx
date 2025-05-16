@@ -5,6 +5,7 @@ import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
 
 const Home = lazy(() => import("./pages/Home"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         {" "}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/pricing" element={<Pricing />} />
         </Routes>
       </Suspense>
       <Footer />

@@ -159,6 +159,7 @@ const Home = () => {
 
       <section className="relative bg-[#0c0c0c] text-white py-36 px-6 overflow-hidden">
         {/* BG DECORATION */}
+
         <div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500 opacity-10 rounded-full blur-3xl z-0" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -258,7 +259,7 @@ const Home = () => {
             Trusted by freelancers, design studios, and startups worldwide
           </div>
 
-          <CTAButton label="Create your first brief" to="/app" />
+          <CTAButton label="Create your first brief" to="/pricing" />
         </div>
       </section>
     </>
