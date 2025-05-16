@@ -67,7 +67,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.2 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-6 text-left hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] transition-all duration-300 group"
             >
               <div className="flex items-center space-x-3 mb-4">

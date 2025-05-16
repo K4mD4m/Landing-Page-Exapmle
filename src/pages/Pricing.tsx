@@ -51,12 +51,12 @@ const Pricing = () => {
     <section className="relative bg-[#0c0c0c] text-white min-h-screen py-32 px-6 overflow-hidden">
       {/* Animated Blobs */}
       <motion.div
-        className="hidden md:block absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-blue-500 rounded-full blur-3xl opacity-30 z-0"
+        className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-blue-500 rounded-full blur-3xl opacity-30 z-0"
         animate={{ x: [0, 20, -20, 0], y: [0, 10, -10, 0] }}
         transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
       />
       <motion.div
-        className="hidden md:block absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-purple-600 rounded-full blur-3xl opacity-30 z-0"
+        className="absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-purple-600 rounded-full blur-3xl opacity-30 z-0"
         animate={{ x: [0, -30, 30, 0], y: [0, -10, 10, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
@@ -88,7 +88,7 @@ const Pricing = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: idx * 0.2 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className={`relative rounded-2xl border border-white/10 p-8 shadow-lg transition-all duration-300 ${
               plan.highlight
                 ? "bg-[#1a1a1a] border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.4)]"

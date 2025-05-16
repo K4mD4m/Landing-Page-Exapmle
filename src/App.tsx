@@ -3,14 +3,17 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
+import ScrollToTop from "./components/ScrollToTop";
 
 const Home = lazy(() => import("./pages/Home"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
       <Suspense fallback={<Loader />}>
         {" "}
@@ -18,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Footer />
