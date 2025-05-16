@@ -1,5 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { Github, Globe, Mail } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import type { ReactNode } from "react";
+
+type AnimatedCardProps = {
+  children: ReactNode;
+  delay?: number;
+};
 
 const contactItems = [
   {
@@ -21,6 +29,28 @@ const contactItems = [
     description: "Want to work together? Reach out directly.",
   },
 ];
+
+const AnimatedCard = ({ children, delay = 0 }: AnimatedCardProps) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+    }
+  }, [inView, controls]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={controls}
+      transition={{ duration: 0.6, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const Contact = () => {
   return (
@@ -59,25 +89,22 @@ const Contact = () => {
 
         <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
           {contactItems.map((item, i) => (
-            <motion.a
-              key={i}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.2 }}
-              viewport={{ once: false }}
-              className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-6 text-left hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] transition-all duration-300 group"
-            >
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 rounded-full bg-white/5">{item.icon}</div>
-                <h3 className="text-xl font-semibold group-hover:text-blue-400 transition-colors">
-                  {item.label}
-                </h3>
-              </div>
-              <p className="text-white text-sm">{item.description}</p>
-            </motion.a>
+            <AnimatedCard key={i} delay={i * 0.2}>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-[#1a1a1a] border border-white/10 rounded-2xl p-6 text-left hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] transition-all duration-300 group"
+              >
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="p-2 rounded-full bg-white/5">{item.icon}</div>
+                  <h3 className="text-xl font-semibold group-hover:text-blue-400 transition-colors">
+                    {item.label}
+                  </h3>
+                </div>
+                <p className="text-white text-sm">{item.description}</p>
+              </a>
+            </AnimatedCard>
           ))}
         </div>
       </div>

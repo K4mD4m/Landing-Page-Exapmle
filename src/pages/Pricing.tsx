@@ -1,6 +1,15 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, XCircle, Zap, Rocket, Users } from "lucide-react";
 import CTAButton from "../components/CTA";
+import { useEffect } from "react";
+import { useAnimation, motion as m } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import type { ReactNode } from "react";
+
+type AnimatedCardProps = {
+  children: ReactNode;
+  delay?: number;
+};
 
 const pricingPlans = [
   {
@@ -46,6 +55,28 @@ const pricingPlans = [
   },
 ];
 
+const AnimatedCard = ({ children, delay = 0 }: AnimatedCardProps) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+    }
+  }, [inView, controls]);
+
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={controls}
+      transition={{ duration: 0.6, delay }}
+    >
+      {children}
+    </m.div>
+  );
+};
+
 const Pricing = () => {
   return (
     <section className="relative bg-[#0c0c0c] text-white min-h-screen py-32 px-6 overflow-hidden">
@@ -83,45 +114,42 @@ const Pricing = () => {
 
       <div className="relative grid md:grid-cols-3 gap-10 max-w-6xl mx-auto z-10">
         {pricingPlans.map((plan, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: idx * 0.2 }}
-            viewport={{ once: false }}
-            className={`relative rounded-2xl border border-white/10 p-8 shadow-lg transition-all duration-300 ${
-              plan.highlight
-                ? "bg-[#1a1a1a] border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.4)]"
-                : "bg-[#111]"
-            }`}
-          >
-            {plan.icon}
-            <h3 className="text-2xl font-semibold mb-1">{plan.name}</h3>
-            <p className="text-4xl font-bold mb-6">
-              ${plan.price}
-              <span className="text-lg text-gray-400">/mo</span>
-            </p>
+          <AnimatedCard key={idx} delay={idx * 0.2}>
+            <div
+              className={`relative rounded-2xl border border-white/10 p-8 shadow-lg transition-all duration-300 ${
+                plan.highlight
+                  ? "bg-[#1a1a1a] border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.4)]"
+                  : "bg-[#111]"
+              }`}
+            >
+              {plan.icon}
+              <h3 className="text-2xl font-semibold mb-1">{plan.name}</h3>
+              <p className="text-4xl font-bold mb-6">
+                ${plan.price}
+                <span className="text-lg text-gray-400">/mo</span>
+              </p>
 
-            <ul className="text-left space-y-3 mb-6">
-              {plan.features.map((feature, i) => (
-                <li key={i} className="flex items-center text-gray-300">
-                  <CheckCircle2 className="text-blue-400 mr-2" size={18} />
-                  {feature}
-                </li>
-              ))}
-              {plan.unavailable.map((feature, i) => (
-                <li
-                  key={`un-${i}`}
-                  className="flex items-center text-gray-500 line-through"
-                >
-                  <XCircle className="text-gray-500 mr-2" size={18} />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+              <ul className="text-left space-y-3 mb-6">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-center text-gray-300">
+                    <CheckCircle2 className="text-blue-400 mr-2" size={18} />
+                    {feature}
+                  </li>
+                ))}
+                {plan.unavailable.map((feature, i) => (
+                  <li
+                    key={`un-${i}`}
+                    className="flex items-center text-gray-500 line-through"
+                  >
+                    <XCircle className="text-gray-500 mr-2" size={18} />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
 
-            <CTAButton label={plan.button.label} to={plan.button.to} />
-          </motion.div>
+              <CTAButton label={plan.button.label} to={plan.button.to} />
+            </div>
+          </AnimatedCard>
         ))}
       </div>
     </section>
