@@ -43,8 +43,8 @@ The goal of this landing page is to demonstrate clean design, smooth animations,
 Clone the repo
 
 ```bash
-git clone https://github.com/K4mD4m/Landing-Page-Exapmle.git
-cd landingpageexample
+git clone https://github.com/K4mD4m/MeetBrief.git
+cd MeetBrief
 ```
 
 Install dependencies:
